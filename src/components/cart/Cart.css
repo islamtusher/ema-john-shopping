@@ -1,0 +1,30 @@
+.cart{
+    background-color: rgb(255, 206, 143);
+    position: sticky;
+    top: 0;
+    text-align: center;
+    padding: 10px;
+}
+.cart-info{
+    text-align: left;
+    font-size: 20px;
+}
+.cart-btn-grp{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px 0;
+
+}
+.cart-btn{
+    padding: 10px 20px;
+    background-color: rgb(255, 84, 118);
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+}
+.cart-btn:hover{
+    background-color: rgb(255, 68, 105);
+    cursor: pointer;
+  
+}
