@@ -17,6 +17,7 @@ const addToDb = id =>{
     }
     localStorage.setItem('shopping-cart', JSON.stringify(shoppingCart));
 }
+// Lode data form localStorage
 const getData = () => {
     let shoppingCart = {};
     const storedCart = localStorage.getItem('shopping-cart');
