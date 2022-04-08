@@ -1,0 +1,13 @@
+.login-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+.log-fild{
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0px;
+    border: 1px solid black;
+    padding: 15px 18px;
+}

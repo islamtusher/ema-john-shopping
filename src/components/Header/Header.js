@@ -35,8 +35,9 @@ const Header = () => {
                     logedInUser?.email ?
                         <button onClick={logoutUser} className='ms-4 bg-warning rounded py-1 px-2'>LogOut</button>
                         :
-                        <Link to="/login" className='login-btn'>Login</Link>   
+                        <Link to="/login" className='login-btn'>Login</Link>         
                 }
+                <Link to="/signup" className='login-btn'>Sign Up</Link>  
             </div>
         </nav>
     );

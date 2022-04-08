@@ -7,12 +7,10 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { removeFromDb } from '../../utilities/fakedb';
 const Orders = () => {
     let [carts, setCarts] = useCarts()
-    console.log(carts);
     const delteItem = (id) => {
         const remaainProducts = carts.filter(product => product.id !== id)
         setCarts(remaainProducts)
         removeFromDb(id)
-        console.log(remaainProducts)
     }
     return (
         <div>
