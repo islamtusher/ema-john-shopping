@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../images/Logo.svg';
 import './Header.css';
 import app from '../../firebaseConfig';
@@ -8,12 +8,10 @@ import app from '../../firebaseConfig';
 const auth = getAuth(app);
 
 const Header = () => {
+    const navigate = useNavigate()
     const [logedInUser, setLogedInUser] = useState({})
-
-    const logoutUser = () => {
-        signOut(auth)
-    }
-
+    
+    // get the current user
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -22,11 +20,17 @@ const Header = () => {
                 setLogedInUser({})
             }
         });
-    },[])
+    }, [])
+    
+    // signout 
+    const logoutUser = () => {
+        signOut(auth)
+        navigate('/login')
+    }
     return (
         <nav className='header'>
             <img src={logo} alt="" />
-            <p className='text-light'>{logedInUser.displayName}</p>
+            <p className='text-light'>{logedInUser.email}</p>
             <div>
                 <Link to="/">Shop</Link>
                 <Link to="/orders">Orders</Link>

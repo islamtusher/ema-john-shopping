@@ -3,23 +3,18 @@ import React from 'react';
 import app from '../../firebaseConfig';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import './Login.css'
+import { useNavigate } from 'react-router-dom';
 
 const auth = getAuth(app)
 
-// createUserWithEmailAndPassword(auth, email, password)
-//   .then((userCredential) => {
-//     const user = userCredential.user;
-//   })
-//   .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//   });
+
 
 const Login = () => {
+    const navigate = useNavigate()
     const provider = new GoogleAuthProvider()
     const googleSignIn = () => {
         signInWithPopup(auth, provider)
-            .then(ressult => console.log(ressult.user.displayName))
+            .then(ressult => navigate('/'))
             .catch(error => console.log(error))
     }
     // get input value
