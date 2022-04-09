@@ -53,8 +53,8 @@ const SignUp = () => {
                     <input  className="py-1 px-2" type="password" name='password' autoComplete="off" placeholder='Password' />
                     {/* <input  className="py-1 px-2" type="password" name='confirmPassword' autoComplete="off" placeholder='Confirm Password' /> */}
                     <button className="bg-warning rounded py-1 px-2" type="submit">Sign Up</button>
-                    {/* <p className='mx-auto p-0 m-0 text-primary'>Or</p> */}
-                    {/* <button onClick={googleSignIn} className="bg-warning rounded py-1 px-2" type="submit">Google LogIn</button> */}
+                    <p className='mx-auto p-0 m-0 text-primary'>Or</p>
+                    <button onClick={googleSignIn} className="bg-warning rounded py-1 px-2" type="submit">Google LogIn</button>
                 </form>
             </div>
         </div>
