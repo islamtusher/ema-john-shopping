@@ -15,13 +15,11 @@ const Login = () => {
             .then(ressult => navigate('/'))
             .catch(error => console.log(error))
     }
-    // pass login
+    // password login
     const LoginWithPass = (event) => {
         event.preventDefault()
-
         const email = event.target.email.value;
         const password = event.target.password.value;
-
         signInWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
               console.log(userCredential.user);
@@ -33,14 +31,14 @@ const Login = () => {
     }
     
     return (
-        <div className='login-page'>
+        <div className='login-page mx-auto'>
             <form onSubmit={LoginWithPass} className="log-fild">
                 <input  className="py-1 px-2" type="email" name='email'  placeholder='Email' />
                 <input  className="py-1 px-2" type="password" name='password' autoComplete="off" placeholder='Password' />
                 <button className="bg-warning rounded py-1 px-2" type="submit">Login</button>
-                <p className='mx-auto p-0 m-0 text-primary'>Or</p>
-                <button onClick={googleSignIn} className="bg-warning rounded py-1 px-2" type="submit">Google LogIn</button>
             </form>
+            <p className='mx-auto p-0 m-0 text-primary'> Or </p>
+            <button onClick={googleSignIn} className="bg-warning rounded py-1 px-2" type="submit">Google LogIn</button>
         </div>
     );
 };
