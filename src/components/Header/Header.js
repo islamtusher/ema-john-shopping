@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import './Header.css';
+import {signOut } from "firebase/auth";
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../images/Logo.svg';
-import './Header.css';
 import auth from '../../firebaseConfig';
 
 
@@ -11,15 +12,14 @@ const Header = () => {
     const [logedInUser, setLogedInUser] = useState({})
     
     // get the current user
+    const [user, loading, error] = useAuthState(auth)
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setLogedInUser(user)
-            } else {
-                setLogedInUser({})
-            }
-        });
-    }, [])
+        if (user) {
+            setLogedInUser(user)
+        } else {
+            setLogedInUser({})
+        }
+    }, [user])
     
     // signout 
     const logoutUser = () => {
