@@ -3,6 +3,7 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebaseConfig';
+import { useEffect } from 'react';
 
 const provider = new GoogleAuthProvider()
 
@@ -30,9 +31,11 @@ const SignUp = () => {
             .catch(error => console.log(error))
     }
 
-    if (user) {
-        navigate('/')
-    }
+    useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
+    },[user])
     // register new user
     const handleSignUp = (event) => {
         event.preventDefault()

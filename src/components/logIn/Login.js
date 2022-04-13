@@ -2,19 +2,22 @@ import { getAuth, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAnd
 import React, { useState } from 'react';
 import auth from '../../firebaseConfig';
 import './Login.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useEffect } from 'react';
 
-// const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
 
 const Login = () => {
+    const navigate = useNavigate()
     // firebase hooks
     const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
     
-    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const location = useLocation()
+    let from = location.state?.from?.pathname || "/";
     
     // google login
     const googleSignIn = () => {
@@ -22,9 +25,11 @@ const Login = () => {
             .then(ressult => navigate('/'))
             .catch(error => console.log(error))
     }
-    if (user) {
-        navigate('/')
-    }
+    useEffect(() => {
+        if (user) {
+            navigate(from, { replace: true })
+        }
+    },[user])
     // login with password
     const LoginWithPass = (event) => {
         event.preventDefault()
