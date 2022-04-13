@@ -2,7 +2,7 @@ import { getAuth, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAnd
 import React, { useState } from 'react';
 import app from '../../firebaseConfig';
 import './Login.css'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
@@ -11,6 +11,7 @@ const Login = () => {
     const navigate = useNavigate()
     const [error, setError] = useState('')
     const [email, setEmail] = useState('')
+    
     // google login
     const googleSignIn = () => {
         signInWithPopup(auth, provider)
@@ -52,7 +53,10 @@ const Login = () => {
                 <p onClick={reserPassword}>Forget Password</p>
                 <button className="bg-warning rounded py-1 px-2" type="submit">Login</button>
             </form>
-            <p className='mx-auto p-0 m-0 text-primary'> Or </p>
+            <p className='mx-auto my-3 text-primary'>
+                    New to Ema-jhon?
+                    <Link className='text-danger ms-2' to='/signup'> Let's SignUp </Link > 
+                </p>
             <button onClick={googleSignIn} className="bg-warning rounded py-1 px-2" type="submit">Google LogIn</button>
         </div>
     );
