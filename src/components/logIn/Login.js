@@ -1,16 +1,20 @@
 import { getAuth, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import React, { useState } from 'react';
-import app from '../../firebaseConfig';
+import auth from '../../firebaseConfig';
 import './Login.css'
 import { Link, useNavigate } from 'react-router-dom';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
-const auth = getAuth(app)
+// const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
 
 const Login = () => {
+    // firebase hooks
+    const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+    
     const navigate = useNavigate()
-    const [error, setError] = useState('')
     const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     
     // google login
     const googleSignIn = () => {
@@ -18,39 +22,27 @@ const Login = () => {
             .then(ressult => navigate('/'))
             .catch(error => console.log(error))
     }
-    // password login
+    if (user) {
+        navigate('/')
+    }
+    // login with password
     const LoginWithPass = (event) => {
         event.preventDefault()
-        const email = event.target.email.value;
-        const password = event.target.password.value;
-        signInWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-              console.log(userCredential.user);
-              navigate('/')
-          })
-          .catch((error) => {
-              console.log(error.message);
-              setError(error.message)
-          });
+        signInWithEmailAndPassword(email, password)
     }
+    console.log(user);
+
     // Password reset email sent!
-    const reserPassword = () => {
-        sendPasswordResetEmail(auth, email)
-            .then(() => {
-                console.log('pass reset');
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-            });
+    const resetPassword = () => {
+        
     }
     return (
         <div className='login-page mx-auto'>
             <form onSubmit={LoginWithPass} className="log-fild">
-                <input onChange={(event) => setEmail(event.target.value)} className="py-1 px-2" type="email" name='email'  placeholder='Email' />
-                <input className="py-1 px-2" type="password" name='password' autoComplete="off" placeholder='Password' />
-                {error && <p>{error}</p>}
-                <p onClick={reserPassword}>Forget Password</p>
+                <input onBlur={(event) => setEmail(event.target.value)} className="py-1 px-2" type="email" name='email'  placeholder='Email' />
+                <input onBlur={(event) => setPassword(event.target.value)} className="py-1 px-2" type="password" name='password' autoComplete="off" placeholder='Password' />
+                {error && <p>{error.message}</p>}
+                <p onClick={resetPassword}>Forget Password</p>
                 <button className="bg-warning rounded py-1 px-2" type="submit">Login</button>
             </form>
             <p className='mx-auto my-3 text-primary'>

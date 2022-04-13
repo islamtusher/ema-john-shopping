@@ -3,9 +3,7 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../images/Logo.svg';
 import './Header.css';
-import app from '../../firebaseConfig';
 
-const auth = getAuth(app);
 
 const Header = () => {
     const navigate = useNavigate()
@@ -13,19 +11,19 @@ const Header = () => {
     
     // get the current user
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setLogedInUser(user)
-            } else {
-                setLogedInUser({})
-            }
-        });
+        // onAuthStateChanged(auth, (user) => {
+        //     if (user) {
+        //         setLogedInUser(user)
+        //     } else {
+        //         setLogedInUser({})
+        //     }
+        // });
     }, [])
     
     // signout 
     const logoutUser = () => {
-        signOut(auth)
-        navigate('/login')
+        // signOut(auth)
+        // navigate('/login')
     }
     return (
         <nav className='header'>

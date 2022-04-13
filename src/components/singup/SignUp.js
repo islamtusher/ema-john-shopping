@@ -1,38 +1,54 @@
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, sendEmailVerification, signInWithPopup, updateProfile } from 'firebase/auth';
+import {  GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import app from '../../firebaseConfig';
+import { Link, useNavigate } from 'react-router-dom';
+import auth from '../../firebaseConfig';
 
-const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
 
 const SignUp = () => {
+    // react hooks
+    const navigate = useNavigate()
+
+    // firebase Hooks
+    const [createUserWithEmailAndPassword,user] = useCreateUserWithEmailAndPassword(auth)
+
     const [name, setName] = useState('')
-    const [email, setEmail] = useState({value : '', error : ''})
-    const [password, setPassword] = useState({value : '', error : ''})
-    const [confirmpassword, setConfirmPassword] = useState({ value: '', error: '' })
-    // console.log(password);
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmpassword, setConfirmPassword] = useState('')
+    // console.log(name, password, email);
 
     // check email validity
     
     // check password validity
     
-
     // google sign in
     const googleSignIn = () => {
         signInWithPopup(auth, provider)
             .then(ressult => console.log(ressult.user.displayName))
             .catch(error => console.log(error))
     }
-    
+
+    if (user) {
+        navigate('/')
+    }
     // register new user
+    const handleSignUp = (event) => {
+        event.preventDefault()
+        console.log('inner');
+
+        createUserWithEmailAndPassword(email, password)
+       
+
+    }
     
 
 
     return (
         <div>
             <div className='login-page mx-auto'>
-                <form  className="log-fild">  
+                <form onSubmit={handleSignUp} className="log-fild">  
                     <input onBlur={(e) => setName(e.target.value)} className="py-1 px-2" type="text" name='name'  placeholder='Name' required />
                     <input onBlur={(e) => setEmail(e.target.value)} className="py-1 px-2" type="email" name='email'  placeholder='Email' required />
                     { email?.error && <p>{email?.error}</p>}
