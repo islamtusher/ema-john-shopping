@@ -5,8 +5,10 @@ import Cart from '../cart/Cart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { removeFromDb } from '../../utilities/fakedb';
+import { useLocation } from 'react-router-dom';
 const Orders = () => {
     let [carts, setCarts] = useCarts()
+
     const delteItem = (id) => {
         const remaainProducts = carts.filter(product => product.id !== id)
         setCarts(remaainProducts)

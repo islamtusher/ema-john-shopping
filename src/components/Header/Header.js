@@ -6,12 +6,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../images/Logo.svg';
 import auth from '../../firebaseConfig';
 
-
 const Header = () => {
     const navigate = useNavigate()
     const [logedInUser, setLogedInUser] = useState({})
     
-    // get the current user
+    // firebase hook > get the current user 
     const [user, loading, error] = useAuthState(auth)
     useEffect(() => {
         if (user) {
@@ -24,7 +23,7 @@ const Header = () => {
     // signout 
     const logoutUser = () => {
         signOut(auth)
-        navigate('/login')
+        navigate('/')
     }
     return (
         <nav className='header'>

@@ -1,41 +1,40 @@
-import { getAuth, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import React, { useState } from 'react';
 import auth from '../../firebaseConfig';
 import './Login.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useEffect } from 'react';
 
-const provider = new GoogleAuthProvider()
 
 const Login = () => {
-    const navigate = useNavigate()
     // firebase hooks
     const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+    const [signInWithGoogle] = useSignInWithGoogle(auth);
     
+    // react hooks
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const navigate = useNavigate()
     const location = useLocation()
+
     let from = location.state?.from?.pathname || "/";
-    
+
     // google login
     const googleSignIn = () => {
-        signInWithPopup(auth, provider)
-            .then(ressult => navigate('/'))
-            .catch(error => console.log(error))
+        signInWithGoogle()
     }
+    // redirect page
     useEffect(() => {
         if (user) {
             navigate(from, { replace: true })
         }
-    },[user])
+    }, [user])
+    
     // login with password
     const LoginWithPass = (event) => {
         event.preventDefault()
         signInWithEmailAndPassword(email, password)
     }
-    console.log(user);
 
     // Password reset email sent!
     const resetPassword = () => {

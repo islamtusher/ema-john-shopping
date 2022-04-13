@@ -1,19 +1,17 @@
-import {  GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebaseConfig';
 import { useEffect } from 'react';
 
-const provider = new GoogleAuthProvider()
 
 const SignUp = () => {
-    // react hooks
-    const navigate = useNavigate()
-
     // firebase Hooks
     const [createUserWithEmailAndPassword,user] = useCreateUserWithEmailAndPassword(auth)
-
+    const [signInWithGoogle] = useSignInWithGoogle(auth);
+    
+    // react hooks
+    const navigate = useNavigate()
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -26,16 +24,16 @@ const SignUp = () => {
     
     // google sign in
     const googleSignIn = () => {
-        signInWithPopup(auth, provider)
-            .then(ressult => console.log(ressult.user.displayName))
-            .catch(error => console.log(error))
+        signInWithGoogle()
+        // navigate('/')
     }
 
     useEffect(() => {
         if (user) {
             navigate('/')
         }
-    },[user])
+    }, [user])
+    
     // register new user
     const handleSignUp = (event) => {
         event.preventDefault()
