@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import useCarts from '../../customHooks/useCarts';
 import useProducts from '../../customHooks/useProducts';
 import { addToDb, getData } from '../../utilities/fakedb';
@@ -18,7 +19,7 @@ const Shop = () => {
                 setPagesNumber(pagesNeed)
             })
     },[])
-    console.log(pagesNumber)
+    // console.log(pagesNumber)
     // console.log(products)
 
     const handleAddToCart = (clickedProduct) => {
@@ -50,7 +51,11 @@ const Shop = () => {
                         handleAddToCart={handleAddToCart}
                         ></Product>)
                 }
-
+                <div>
+                {
+                    [...Array(pagesNumber).keys()].map(number => <Button>{number + 1}</Button>)    
+                }
+                </div>
             </div>
             <div className="cart-container">
                 <Cart carts={carts}></Cart>
