@@ -41,10 +41,10 @@ const Login = () => {
         
     }
     return (
-        <div className='login-page mx-auto'>
+        <div className='login-page mx-auto '>
             <form onSubmit={LoginWithPass} className="log-fild">
-                <input onBlur={(event) => setEmail(event.target.value)} className="py-1 px-2" type="email" name='email'  placeholder='Email' />
-                <input onBlur={(event) => setPassword(event.target.value)} className="py-1 px-2" type="password" name='password' autoComplete="off" placeholder='Password' />
+                <input onBlur={(event) => setEmail(event.target.value)} className="py-1 px-2 " type="email" name='email'  placeholder='Email' />
+                <input onBlur={(event) => setPassword(event.target.value)} className="py-1 px-2 " type="password" name='password' autoComplete="off" placeholder='Password' />
                 {error && <p>{error.message}</p>}
                 <p onClick={resetPassword}>Forget Password</p>
                 <button className="bg-warning rounded py-1 px-2" type="submit">Login</button>
