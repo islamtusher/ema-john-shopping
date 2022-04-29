@@ -10,7 +10,7 @@ const Orders = () => {
     let [carts, setCarts] = useCarts()
 
     const delteItem = (id) => {
-        const remaainProducts = carts.filter(product => product.id !== id)
+        const remaainProducts = carts.filter(product => product._id !== id)
         setCarts(remaainProducts)
         removeFromDb(id)
     }
@@ -21,7 +21,7 @@ const Orders = () => {
                 <div className="orders  w-50">
                     {
                         carts.map(product => 
-                        <div key={product.id} className='w-75 mx-auto d-flex justify-content-between align-items-center'>
+                        <div key={product._id} className='w-75 mx-auto d-flex justify-content-between align-items-center'>
                             <img className='w-25' src={product.img} alt="" />
                             <div className=''>
                                 <h4 className='fw-normal'>{product.name}</h4>
@@ -29,7 +29,7 @@ const Orders = () => {
                                 <p className='m-0'>Sipping Charge: {product.shipping}</p>
                                 <p className='m-0'>Quantity: {product.quantity}</p>
                             </div>
-                            <FontAwesomeIcon onClick={() => delteItem(product.id)} className='delete-btn' icon={faTrashCan}></FontAwesomeIcon>
+                            <FontAwesomeIcon onClick={() => delteItem(product._id)} className='delete-btn' icon={faTrashCan}></FontAwesomeIcon>
                         </div>)
 
                     }

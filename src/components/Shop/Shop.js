@@ -9,15 +9,24 @@ import './Shop.css';
 const Shop = () => {
     const [products, setProducts] = useProducts();
     const [carts, setCart] = useCarts();
-    // console.log(carts)
+    const [pagesNumber, setPagesNumber] = useState(0) 
+    useEffect(() => {
+        fetch('http://localhost:5000/productsLength')
+            .then(res => res.json())
+            .then(data => {
+                const pagesNeed = Math.ceil(data.productsLength / 10)
+                setPagesNumber(pagesNeed)
+            })
+    },[])
+    console.log(pagesNumber)
     // console.log(products)
 
     const handleAddToCart = (clickedProduct) => {
-        const matchedProduct = carts.find(product => product.id === clickedProduct.id)
+        const matchedProduct = carts.find(product => product._id === clickedProduct._id)
         let newCart = [];
 
         if (matchedProduct) {
-            const remainProducets = carts.filter( product => product.id !== clickedProduct.id )
+            const remainProducets = carts.filter( product => product._id !== clickedProduct._id )
             matchedProduct.quantity = matchedProduct.quantity + 1
             newCart = [...remainProducets, matchedProduct];
             
@@ -28,7 +37,7 @@ const Shop = () => {
         }
         // do not do this: cart.push(product);
         setCart(newCart);
-        addToDb(clickedProduct.id)
+        addToDb(clickedProduct._id)
     }
 
     return (
@@ -36,11 +45,12 @@ const Shop = () => {
             <div className="products-container">
                 {
                     products.map(product=><Product 
-                        key={product.id}
+                        key={product._id}
                         product={product}
                         handleAddToCart={handleAddToCart}
                         ></Product>)
                 }
+
             </div>
             <div className="cart-container">
                 <Cart carts={carts}></Cart>

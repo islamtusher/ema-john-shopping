@@ -10,7 +10,7 @@ const useCarts = ()=> {
 
         const selectedProducts = []
         for (const key in storedProducts) {
-            const matchedProduct = products.find(product => product.id === key)
+            const matchedProduct = products.find(product => product._id === key)
             if (matchedProduct) {
                 matchedProduct.quantity = storedProducts[key]
                 selectedProducts.push(matchedProduct)
