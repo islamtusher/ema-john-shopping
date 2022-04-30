@@ -12,6 +12,21 @@
     margin-top: 100px;
 }
 
+/* .page-btn Button{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+} */
+.page-btn .page-active-btn{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+.page-btn .page-active-btn:focus{
+    background-color: orange;
+    color: rgb(0, 0, 0);
+    border-color: none;
+    box-shadow: none;
+}
+
 @media screen and (max-width:1100px) {
     .products-container{
         grid-template-columns: repeat(2, 1fr);
