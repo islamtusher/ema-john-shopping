@@ -16,11 +16,11 @@
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
 } */
-.page-btn .page-active-btn{
+.page-btn .active-btn{
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
 }
-.page-btn .page-active-btn:focus{
+.page-btn .active-btn:focus{
     background-color: orange;
     color: rgb(0, 0, 0);
     border-color: none;
